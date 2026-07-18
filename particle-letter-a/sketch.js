@@ -23,6 +23,7 @@ function setup() {
     let dpr = window.devicePixelRatio || 1;
     pixelDensity(dpr);
     createCanvas(windowWidth, windowHeight);
+    if (isMobile) noSmooth();
 
     if (!img || img.width === 0) {
         textAlign(CENTER, CENTER);
@@ -63,12 +64,12 @@ function setup() {
     let centerX = width / 2;
     let centerY = height / 2;
 
-    let particleCount = isMobile ? 600 : 4000;
+    let particleCount = isMobile ? 800 : 3000;
 
-    let spreadX = isMobile ? 40 : 80;
-    let spreadY = isMobile ? 30 : 60;
-    let sizeMin = isMobile ? 2 : 1.4;
-    let sizeMax = isMobile ? 4 : 2.2;
+    let spreadX = isMobile ? 30 : 90;
+    let spreadY = isMobile ? 20 : 70;
+    let sizeMin = isMobile ? 1.2 : 2.2;
+    let sizeMax = isMobile ? 1.6 : 3;
 
     // Только один цикл создания частиц
     for (let i = 0; i < particleCount; i++) {
@@ -94,8 +95,8 @@ function draw() {
 
     for (let p of particles) {
         if (frameCount > p.delay) {
-            p.x += (p.targetX - p.x) * 0.4;
-            p.y += (p.targetY - p.y) * 0.4;
+            p.x += (p.targetX - p.x) * 0.6;
+            p.y += (p.targetY - p.y) * 0.6;
         }
 
         // Отталкивание от мыши
@@ -108,19 +109,13 @@ function draw() {
         }
 
         // Рисуем эллипсы и убираем вращение
-        if (isMobile) {
-            fill(particleColor[0], particleColor[1], particleColor[2]);
-            noStroke();
-            ellipse(p.x, p.y, p.sizeW, p.sizeH); 
-        } else {
-            push();
-            translate(p.x, p.y);
-            rotate(p.rot);
-            fill(particleColor[0], particleColor[1], particleColor[2]);
-            noStroke();
-            ellipse(0, 0, p.sizeW, p.sizeH);
-            pop();
-        }
+        push();
+        translate(p.x, p.y);
+        rotate(p.rot);
+        fill(particleColor[0], particleColor[1], particleColor[2]);
+        noStroke();
+        ellipse(0, 0, p.sizeW, p.sizeH);
+        pop();
     }
 }
 
