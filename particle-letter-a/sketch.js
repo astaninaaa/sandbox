@@ -19,7 +19,7 @@ function setup() {
     isMobile = windowWidth < 768;
 
     if (isMobile) {
-        pixelDensity(min(displayDensity(), 2)); 
+        pixelDensity(min(displayDensity(2))); 
     } else {
         pixelDensity(1); 
     }
@@ -68,10 +68,10 @@ function setup() {
 
     let particleCount = isMobile ? 700 : 4000;
 
-    let spreadX = isMobile ? 30 : 70;
-    let spreadY = isMobile ? 20 : 50;
-    let sizeMin = isMobile ? 0.5 : 1.8;
-    let sizeMax = isMobile ? 2 : 3;
+    let spreadX = isMobile ? 40 : 80;
+    let spreadY = isMobile ? 30 : 60;
+    let sizeMin = isMobile ? 2 : 1.4;
+    let sizeMax = isMobile ? 4 : 2.2;
 
     // Только один цикл создания частиц
     for (let i = 0; i < particleCount; i++) {
@@ -103,9 +103,9 @@ function draw() {
 
         // Отталкивание от мыши
         let d = dist(mouseX, mouseY, p.x, p.y);
-        if (d < 140) {
+        if (d < 150) {
             let angle = atan2(p.y - mouseY, p.x - mouseX);
-            let force = map(d, 0, 140, 15, 0);
+            let force = map(d, 0, 150, 10, 0);
             p.x += cos(angle) * force;
             p.y += sin(angle) * force;
         }
