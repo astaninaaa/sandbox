@@ -17,13 +17,11 @@ function preload() {
 function setup() {
 
     isMobile = windowWidth < 768;
+    targets = [];
+    particles = [];
 
-    if (isMobile) {
-        pixelDensity(min(displayDensity(2))); 
-    } else {
-        pixelDensity(1); 
-    }
-    
+    let dpr = window.devicePixelRatio || 1;
+    pixelDensity(dpr);
     createCanvas(windowWidth, windowHeight);
 
     if (!img || img.width === 0) {
@@ -34,7 +32,8 @@ function setup() {
         return;
     }
     
-    let pg = createGraphics(width, height);
+    let pg = createGraphics(windowWidth, windowHeight);
+    pg.pixelDensity(1);
     pg.background(0, 0, 0, 0);
     
     // Буква 50% от экрана
@@ -64,9 +63,7 @@ function setup() {
     let centerX = width / 2;
     let centerY = height / 2;
 
-    isMobile = windowWidth < 768;
-
-    let particleCount = isMobile ? 700 : 4000;
+    let particleCount = isMobile ? 600 : 4000;
 
     let spreadX = isMobile ? 40 : 80;
     let spreadY = isMobile ? 30 : 60;
