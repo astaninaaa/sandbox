@@ -15,8 +15,15 @@ function preload() {
 }
 
 function setup() {
-    // Добавляем pixelDensity(1) для старых телефонов (не повредит)
-    pixelDensity(1);
+
+    isMobile = windowWidth < 768;
+
+    if (isMobile) {
+        pixelDensity(min(displayDensity(), 2)); 
+    } else {
+        pixelDensity(1); 
+    }
+    
     createCanvas(windowWidth, windowHeight);
 
     if (!img || img.width === 0) {
@@ -58,16 +65,18 @@ function setup() {
     let centerY = height / 2;
 
     isMobile = windowWidth < 768;
-    let particleCount = isMobile ? 1000 : 4000;
+
+    let particleCount = isMobile ? 700 : 4000;
 
     let spreadX = isMobile ? 40 : 80;
     let spreadY = isMobile ? 30 : 60;
-    let sizeMin = isMobile ? 2.3 : 1.1;
-    let sizeMax = isMobile ? 3 : 2;
+    let sizeMin = isMobile ? 1.6 : 0.8;
+    let sizeMax = isMobile ? 2.2 : 1.2;
 
     // Только один цикл создания частиц
     for (let i = 0; i < particleCount; i++) {
         let randomTarget = random(targets);
+        if (!randomTarget) continue;
         particles.push({
             x: centerX + randomGaussian(0, spreadX),
             y: centerY + randomGaussian(0, spreadY),
@@ -101,9 +110,8 @@ function draw() {
             p.y += sin(angle) * force;
         }
 
-        // Рисуем эллипсы. На телефоне убираем вращение (чтобы не тормозить)
+        // Рисуем эллипсы и убираем вращение
         if (isMobile) {
-            // Облегченная версия для телефона
             fill(particleColor[0], particleColor[1], particleColor[2]);
             noStroke();
             ellipse(p.x, p.y, p.sizeW, p.sizeH); 
