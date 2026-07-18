@@ -1,15 +1,12 @@
 # Sandbox: Interactive code experiments
 
-## 1 Particle letter A formation 
-Built with p5.js and forms from a cloud of particles, reacts to mouse movement.
+## 1 Particle letter "A" formation 
+A particle cloud forms the letter "A" and reacts to mouse movement.
 
-### Steck
-- **p5.js**
-- **JavaScript**
-- **HTML / CSS**
+### Tech Stack
+p5.js / JS / HTML / CSS
 
----
 
-## To clone local
-bash
+## Clone locally
+```bash
 git clone https://github.com/astaninaaa/sandbox.git
